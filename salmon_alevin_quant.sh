@@ -13,7 +13,7 @@ abort()
     exit 1
 }
 
-while getopts ":b:q:i:t:l:w:m:r:x:j:" opt; do
+while getopts ":b:q:i:c:t:l:w:m:r:x:j:" opt; do
     case $opt in
         b)
             inbarcode=`realpath $OPTARG`
@@ -23,6 +23,9 @@ while getopts ":b:q:i:t:l:w:m:r:x:j:" opt; do
             ;;
         i)
             index=`realpath $OPTARG`
+            ;;
+        c)
+            method=="$OPTARG"
             ;;
         t)
           if [[ $OPTARG =~ ^[^-]+$ ]];then
@@ -98,6 +101,8 @@ tgcol=$(awk -F'\t' '{print NF; exit}' "$tgMap")
 if [[ tgcol -eq 2 ]]; then
 	txp2gene=$tgMap
 elif [[ tgcol -ne 2 ]]; then
+	apt install less -y#Less is needed to parse the GTF into the correct format
+	apt install file -y
 	if (file $tgMap | grep -q compressed); then
 	gunzip -ck $tgMap > transcriptome
 	tgMap=transcriptome
@@ -129,9 +134,9 @@ params=()
 [[ $method == "chromium" ]] && params+=(--chromium)
 [[ $method == "chromiumV3" ]] && params+=(--chromiumV3)
 
-[[ -e "$whitelist" ]] && params+=(--whitelist=$whitelist)
-[[ -e "$mrna" ]] && params+=(--mrna=$mrna)
-[[ -e "$rrna" ]] && params+=(--mrna=$rrna)
+[[ -e "$whitelist" ]] && params+=(--whitelist $whitelist)
+[[ -e "$mrna" ]] && params+=(--mrna $mrna)
+[[ -e "$rrna" ]] && params+=(--mrna $rrna)
 [[ $mtx == "TRUE" ]] && params+=(--dumpMtx)
 
 
@@ -139,13 +144,13 @@ params=()
 
 salmon alevin \
       --no-version-check \
-      --index="salmon_index" \
-      -p=$threads \
-      --libType=$lib \
+      -i "salmon_index" \
+      -p $threads \
+      -l $lib \
       -1 $barcodes \
       -2 $reads \
       "${params[@]}" \
-      -o=$outdir ;
+      -o $outdir ;
 
 tar -czvf $outdir.alevin.tar.gz -C $outdir .
 rm -rf $outdir
