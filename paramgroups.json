@@ -1,0 +1,25 @@
+[
+    {
+        "name": "Basic parameters",
+        "description": "These parameters are essential for the analysis.",
+        "hidden": false,
+        "parameters": [
+            "Barcodes",
+            "Reads",
+            "Transcriptome.Index",
+            "TgMap"
+        ]
+    },
+    {
+        "name": "Advanced parameters",
+        "description": "Additional parameters with standard defaults.",
+        "hidden": false,
+        "parameters": [
+            "Library.Type",
+            "Whitelist",
+            "mtRNA",
+            "rRNA",
+            "dumpMTX"
+        ]
+    }
+]
