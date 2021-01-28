@@ -6,7 +6,7 @@ author=Anthony S. Castanza;UCSD-MesirovLab
 categories=rna-seq;rna-seq;rna-seq
 commandLine=<libdir>salmon_alevin_quant.sh -b <Barcodes> -q <Reads> -i <Transcriptome.Index> -c <Chemistry> -t <TgMap> -l <Library.Type> -w <Whitelist> -m <mtRNA> -r <rRNA> -x <dumpMTX> -j <job.cpuCount>
 cpuType=any
-description=Quantification and analysis of 3? tagged-end single-cell sequencing data using Salmon's Alevin function.<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
+description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin function.<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
 fileFormat=.gz;.tar.gz;gz
 job.docker.image=combinelab/salmon\:1.4.0
 language=any
