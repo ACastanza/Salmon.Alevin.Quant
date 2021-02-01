@@ -229,7 +229,6 @@ salmon alevin \
       --tgMap $txp2gene \
       -o $outdir ;
 
-cp $outdir/alevin/quants_mat.gz alevin.quants_mat.gz
 tar -czvf $outdir.output.tar.gz -C $outdir .
 rm -rf $outdir
 
