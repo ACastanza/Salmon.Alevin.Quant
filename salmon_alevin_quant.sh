@@ -132,11 +132,12 @@ elif [[ tgcol -ne 2 ]]; then
 		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$4"\t"$2}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
 		txp2gene="txp2gene.tsv"
 
-			if [[ $mtbuild == "TRUE" ]]
+			if [[ $mtbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM")' | cut -f9 | tr -s ";" " " | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
 			mtrna=GTF_mtGenes.txt
 			fi
-			if [[ $rbuild == "TRUE" ]]
+
+			if [[ $rbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$6=="\"rRNA\""' | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
 			rrna=GTF_rGenes.txt
 			fi
@@ -146,11 +147,12 @@ elif [[ tgcol -ne 2 ]]; then
 		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$6 "."  $8"\t"$2 "." $4}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
 		txp2gene="txp2gene.tsv"
 
-			if [[ $mtbuild == "TRUE" ]]
+			if [[ $mtbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM")' | cut -f9 | tr -s ";" " " | awk '{print$2 "."  $4}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
 			mtrna=GTF_mtGenes.txt
 			fi
-			if [[ $rbuild == "TRUE" ]]
+
+			if [[ $rbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$14=="\"rRNA\""' | awk '{print$2 "."  $4}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
 			rrna=GTF_rGenes.txt
 			fi
@@ -159,11 +161,12 @@ elif [[ tgcol -ne 2 ]]; then
 		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$4"\t"$8}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
 		txp2gene="txp2gene.tsv"
 
-			if [[ $mtbuild == "TRUE" ]]
+			if [[ $mtbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM")' | cut -f9 | tr -s ";" " " | awk '{print$8}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
 			mtrna=GTF_mtGenes.txt
 			fi
-			if [[ $rbuild == "TRUE" ]]
+
+			if [[ $rbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$6=="\"rRNA\""' | awk '{print$8}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
 			rrna=GTF_rGenes.txt
 			fi
@@ -173,11 +176,12 @@ elif [[ tgcol -ne 2 ]]; then
 		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$6 "."  $8"\t"$10}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
 		txp2gene="txp2gene.tsv"
 
-			if [[ $mtbuild == "TRUE" ]]
+			if [[ $mtbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM")' | cut -f9 | tr -s ";" " " | awk '{print$10}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
 			mtrna=GTF_mtGenes.txt
 			fi
-			if [[ $rbuild == "TRUE" ]]
+
+			if [[ $rbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$14=="\"rRNA\""' | awk '{print$10}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
 			rrna=GTF_rGenes.txt
 			fi
