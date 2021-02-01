@@ -1,12 +1,12 @@
 #salmon.alevin.quant
-#Mon Feb 01 20:35:05 UTC 2021
+#Mon Feb 01 23:33:10 UTC 2021
 JVMLevel=
 LSID=urn\:lsid\:8080.gpserver.ip-172-31-26-71.ip-172-31-26-71.ec2.internal\:genepatternmodules\:337\:1
 author=Anthony S. Castanza;UCSD-MesirovLab
 categories=rna-seq;rna-seq;rna-seq
 commandLine=<libdir>salmon_alevin_quant.sh -b <Barcodes> -q <Reads> -i <Transcriptome.Index> -c <Chemistry> -l <Library.Type> -t <TgMap> -u <GTF.Gene.ID.Type> -w <Whitelist> -m <mtRNA> -n <mtRNA.From.GTF> -r <rRNA> -s  <rRNA.From.GTF> -x <dumpMTX> -e <expectCells> -f <forceCells> -j <job.cpuCount>
 cpuType=any
-description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin function.<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
+description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin function (version 1.4.0).<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
 fileFormat=.gz;.tar.gz;gz
 job.docker.image=combinelab/salmon\:1.4.0
 language=any
@@ -67,7 +67,7 @@ p13_value=TRUE\=true;FALSE\=false
 p14_MODE=
 p14_TYPE=Integer
 p14_default_value=0
-p14_description=This command line flag uses the cellranger type white-listing procedure. As specified in their algorithm overview page, ?All barcodes whose total UMI counts exceed m/10 are called as cells?, where m is the frequency of the top 1% cells as specified by the parameter of this command line flag.\n<br>\nNote\: Setting this parameter to "0" disables this option and, unless forceCells is specified, instead uses the default Alevin knee calculation heuristics.
+p14_description=This command line flag uses the cellranger type white-listing procedure. As specified in their algorithm overview page, "All barcodes whose total UMI counts exceed m/10 are called as cells", where m is the frequency of the top 1% cells as specified by the parameter of this command line flag.\n<br>\nNote\: Setting this parameter to "0" disables this option and, unless forceCells is specified, instead uses the default Alevin knee calculation heuristics.
 p14_fileFormat=
 p14_flag=-e
 p14_name=expectCells
