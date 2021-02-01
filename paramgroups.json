@@ -8,6 +8,7 @@
             "Reads",
             "Transcriptome.Index",
             "Chemistry",
+            "Library.Type",
             "TgMap"
         ]
     },
@@ -16,11 +17,15 @@
         "description": "Additional parameters with standard defaults.",
         "hidden": false,
         "parameters": [
-            "Library.Type",
+            "GTF.Gene.ID.Type",
             "Whitelist",
             "mtRNA",
+            "mtRNA.From.GTF",
             "rRNA",
-            "dumpMTX"
+            "rRNA.From.GTF",
+            "dumpMTX",
+            "expectCells",
+            "forceCells"
         ]
     }
 ]

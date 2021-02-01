@@ -4,6 +4,8 @@ set -e
 
 abort()
 {
+rm -rf salmon_index txp2gene.tsv transcriptome
+
     echo >&2 '
 ***************
 *** ABORTED ***
@@ -13,7 +15,7 @@ abort()
     exit 1
 }
 
-while getopts ":b:q:i:c:t:l:w:m:r:x:j:" opt; do
+while getopts ":b:q:i:c:l:t:u:w:m:n:r:s:x:f:e:j:" opt; do
     case $opt in
         b)
             inbarcode=`realpath $OPTARG`
@@ -25,7 +27,10 @@ while getopts ":b:q:i:c:t:l:w:m:r:x:j:" opt; do
             index=`realpath $OPTARG`
             ;;
         c)
-            method=="$OPTARG"
+            method="$OPTARG"
+            ;;
+        l)
+            lib="$OPTARG"
             ;;
         t)
           if [[ $OPTARG =~ ^[^-]+$ ]];then
@@ -39,47 +44,59 @@ while getopts ":b:q:i:c:t:l:w:m:r:x:j:" opt; do
             echo "--tgMap = $tgMap"
           fi          
             ;;
-        l)
-            lib="$OPTARG"
+        u)
+            idtype="$OPTARG"
             ;;
         w)
           if [[ $OPTARG =~ ^[^-]+$ ]];then
             whitelist=`realpath $OPTARG`
-            echo "-w <whitelist> = $whitelist"
+            echo "--whitelist = $whitelist"
           elif [[ $OPTARG =~ ^-. ]];then
             whitelist=""
             let OPTIND=$OPTIND-1
           else
             whitelist=`realpath $OPTARG`
-            echo "-w <whitelist> = $whitelist"
+            echo "--whitelist = $whitelist"
           fi          
             ;;
         m)
           if [[ $OPTARG =~ ^[^-]+$ ]];then
-            mrna=`realpath $OPTARG`
-            echo "-m <mrna> = $mrna"
+            mtrna=`realpath $OPTARG`
+            echo "--mrna = $mtrna"
           elif [[ $OPTARG =~ ^-. ]];then
-            mrna=""
+            mtrna=""
             let OPTIND=$OPTIND-1
           else
             mrna=`realpath $OPTARG`
-            echo "-m <mrna> = $mrna"
+            echo "--mrna = $mtrna"
           fi          
+            ;;
+        n)
+            mtbuild="$OPTARG"
             ;;
         r)
           if [[ $OPTARG =~ ^[^-]+$ ]];then
             rrna=`realpath $OPTARG`
-            echo "-r <rrna> = $rrna"
+            echo "--rrna = $rrna"
           elif [[ $OPTARG =~ ^-. ]];then
             rrna=""
             let OPTIND=$OPTIND-1
           else
             rrna=`realpath $OPTARG`
-            echo "-r <rrna> = $rrna"
+            echo "--rrna = $rrna"
           fi          
+            ;;
+        s)
+            rbuild="$OPTARG"
             ;;
         x)
             mtx="$OPTARG"
+            ;;
+        e)
+            expect="$OPTARG"
+            ;;
+        f)
+            force="$OPTARG"
             ;;
         j)
             threads="$OPTARG"
@@ -101,23 +118,73 @@ tgcol=$(awk -F'\t' '{print NF; exit}' "$tgMap")
 if [[ tgcol -eq 2 ]]; then
 	txp2gene=$tgMap
 elif [[ tgcol -ne 2 ]]; then
-	apt install less -y#Less is needed to parse the GTF into the correct format
-	apt install file -y
+	apt-get install less file -qq > /dev/null
+ 	## Less and file are needed to parse the GTF into the correct format this will install them (silently?)
 	if (file $tgMap | grep -q compressed); then
 	gunzip -ck $tgMap > transcriptome
 	tgMap=transcriptome
 	fi
-	test=$(zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | head -n 1| cut -f9 | tr -s ";" " " | awk '{print$3}' | sort | uniq |  sed 's/\"//g')
-	if [[ $test == "transcript_id" ]]; then
+
+	test=$(zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | head -n 1| cut -f9 | tr -s ";" " ")
+	txid=$(($(echo $test | awk -v b="transcript_id" '{for (i=1;i<=NF;i++) { if ($i == b) { print i } }}') + 1))
+
+	if [[ $txid == "4" && $idtype == "gene_id" ]]; then
 		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$4"\t"$2}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
 		txp2gene="txp2gene.tsv"
-		elif [[ $test == "gene_version" ]]; then
+
+			if [[ $mtbuild == "TRUE" ]]
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM")' | cut -f9 | tr -s ";" " " | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
+			mtrna=GTF_mtGenes.txt
+			fi
+			if [[ $rbuild == "TRUE" ]]
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$6=="\"rRNA\""' | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
+			rrna=GTF_rGenes.txt
+			fi
+
+		elif [[ $txid == "6"  && $idtype == "gene_id" ]]; then
 		echo "Separate version field (ensembl, non-gencode transcriptome, eg. rat, etc)"
 		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$6 "."  $8"\t"$2 "." $4}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
 		txp2gene="txp2gene.tsv"
+
+			if [[ $mtbuild == "TRUE" ]]
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM")' | cut -f9 | tr -s ";" " " | awk '{print$2 "."  $4}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
+			mtrna=GTF_mtGenes.txt
+			fi
+			if [[ $rbuild == "TRUE" ]]
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$14=="\"rRNA\""' | awk '{print$2 "."  $4}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
+			rrna=GTF_rGenes.txt
+			fi
+
+		elif [[ $txid == "4" && $idtype == "gene_symbol" ]]; then
+		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$4"\t"$8}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
+		txp2gene="txp2gene.tsv"
+
+			if [[ $mtbuild == "TRUE" ]]
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM")' | cut -f9 | tr -s ";" " " | awk '{print$8}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
+			mtrna=GTF_mtGenes.txt
+			fi
+			if [[ $rbuild == "TRUE" ]]
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$6=="\"rRNA\""' | awk '{print$8}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
+			rrna=GTF_rGenes.txt
+			fi
+
+		elif [[ $txid == "6"  && $idtype == "gene_symbol" ]]; then
+		echo "Separate version field (ensembl, non-gencode transcriptome, eg. rat, etc)"
+		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$6 "."  $8"\t"$10}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
+		txp2gene="txp2gene.tsv"
+
+			if [[ $mtbuild == "TRUE" ]]
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM")' | cut -f9 | tr -s ";" " " | awk '{print$10}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
+			mtrna=GTF_mtGenes.txt
+			fi
+			if [[ $rbuild == "TRUE" ]]
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$14=="\"rRNA\""' | awk '{print$10}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
+			rrna=GTF_rGenes.txt
+			fi
+
 		else
 		echo "Error Parsing GTF"
-	fi
+	fi		
 
 elif [[ tgcol -eq 2 ]]; then
 	txp2gene=$tgMap
@@ -133,12 +200,17 @@ params=()
 [[ $method == "dropseq" ]] && params+=(--dropseq)
 [[ $method == "chromium" ]] && params+=(--chromium)
 [[ $method == "chromiumV3" ]] && params+=(--chromiumV3)
+[[ $method == "citeseq" ]] && params+=(--citeseq)
+[[ $method == "celseq" ]] && params+=(--celseq)
+[[ $method == "celseq2" ]] && params+=(--celseq2)
+[[ $method == "quartzseq2" ]] && params+=(--quartzseq2)
 
 [[ -e "$whitelist" ]] && params+=(--whitelist $whitelist)
-[[ -e "$mrna" ]] && params+=(--mrna $mrna)
-[[ -e "$rrna" ]] && params+=(--mrna $rrna)
+[[ -e "$mtrna" ]] && params+=(--mrna $mtrna)
+[[ -e "$rrna" ]] && params+=(--rrna $rrna)
 [[ $mtx == "TRUE" ]] && params+=(--dumpMtx)
-
+[[ $expect -gt "0" ]] && params+=(--expectCells $expect)
+[[ $force -gt "0" ]] && params+=(--forceCells $force)
 
 # [[ $CONDITION == true ]] && params+=(--param)
 
@@ -150,11 +222,13 @@ salmon alevin \
       -1 $barcodes \
       -2 $reads \
       "${params[@]}" \
+      --tgMap $txp2gene \
       -o $outdir ;
 
-tar -czvf $outdir.alevin.tar.gz -C $outdir .
+cp $outdir/alevin/quants_mat.gz alevin.quants_mat.gz
+tar -czvf $outdir.output.tar.gz -C $outdir .
 rm -rf $outdir
 
     echo "--Done." ;
 
-rm -rf salmon_index txp2gene.tsv transcriptome
+rm -rf salmon_index txp2gene.tsv transcriptome GTF_mtGenes.txt GTF_rGenes.txt
