@@ -229,7 +229,6 @@ salmon alevin \
       --tgMap $txp2gene \
       -o $outdir ;
 
-tar -czvf $outdir.output.tar.gz -C $outdir .
 rm -rf $outdir
 
     echo "--Done." ;
