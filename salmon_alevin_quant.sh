@@ -4,7 +4,7 @@ set -e
 
 abort()
 {
-rm -rf salmon_index txp2gene.tsv transcriptome
+rm -rf salmon_index GTF_txp2gene.tsv transcriptome
 
     echo >&2 '
 ***************
@@ -129,8 +129,8 @@ elif [[ tgcol -ne 2 ]]; then
 	txid=$(($(echo $test | awk -v b="transcript_id" '{for (i=1;i<=NF;i++) { if ($i == b) { print i } }}') + 1))
 
 	if [[ $txid == "4" && $idtype == "gene_id" ]]; then
-		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$4"\t"$2}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
-		txp2gene="txp2gene.tsv"
+		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$4"\t"$2}' | sort | uniq | sed 's/\"//g' > "GTF_txp2gene.tsv"
+		txp2gene="GTF_txp2gene.tsv"
 
 			if [[ $mtbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM" || $1=="MT")' | cut -f9 | tr -s ";" " " | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
@@ -138,14 +138,14 @@ elif [[ tgcol -ne 2 ]]; then
 			fi
 
 			if [[ $rbuild == "TRUE" ]]; then
-			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$6=="\"rRNA\""' | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
-			rrna=GTF_rGenes.txt
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$6=="\"rRNA\""' | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_rrnaGenes.txt"
+			rrna=GTF_rrnaGenes.txt
 			fi
 
 		elif [[ $txid == "6"  && $idtype == "gene_id" ]]; then
 		echo "Separate version field (ensembl, non-gencode transcriptome, eg. rat, etc)"
-		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$6 "."  $8"\t"$2 "." $4}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
-		txp2gene="txp2gene.tsv"
+		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$6 "."  $8"\t"$2 "." $4}' | sort | uniq | sed 's/\"//g' > "GTF_txp2gene.tsv"
+		txp2gene="GTF_txp2gene.tsv"
 
 			if [[ $mtbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM" || $1=="MT")' | cut -f9 | tr -s ";" " " | awk '{print$2 "."  $4}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
@@ -153,14 +153,14 @@ elif [[ tgcol -ne 2 ]]; then
 			fi
 
 			if [[ $rbuild == "TRUE" ]]; then
-			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$14=="\"rRNA\""' | awk '{print$2 "."  $4}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
-			rrna=GTF_rGenes.txt
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$14=="\"rRNA\""' | awk '{print$2 "."  $4}' | sort | uniq | sed 's/\"//g' > "GTF_rrnaGenes.txt"
+			rrna=GTF_rrnaGenes.txt
 			fi
 
 		elif [[ $txid == "4" && $idtype == "gene_id_noversion" ]]; then
 		echo "Omitting gene id versions..."
-		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$4"\t"$2}' | awk 'BEGIN { OFS=FS="\t" } { sub("\\..*", "", $2); print }' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
-		txp2gene="txp2gene.tsv"
+		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$4"\t"$2}' | awk 'BEGIN { OFS=FS="\t" } { sub("\\..*", "", $2); print }' | sort | uniq | sed 's/\"//g' > "GTF_txp2gene.tsv"
+		txp2gene="GTF_txp2gene.tsv"
 
 			if [[ $mtbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM" || $1=="MT")' | cut -f9 | tr -s ";" " " | awk '{print$2}' | awk 'BEGIN { OFS=FS="\t" } { sub("\\..*", "", $1); print }' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
@@ -168,14 +168,14 @@ elif [[ tgcol -ne 2 ]]; then
 			fi
 
 			if [[ $rbuild == "TRUE" ]]; then
-			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$6=="\"rRNA\""' | awk '{print$2}' | awk 'BEGIN { OFS=FS="\t" } { sub("\\..*", "", $1); print }' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
-			rrna=GTF_rGenes.txt
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$6=="\"rRNA\""' | awk '{print$2}' | awk 'BEGIN { OFS=FS="\t" } { sub("\\..*", "", $1); print }' | sort | uniq | sed 's/\"//g' > "GTF_rrnaGenes.txt"
+			rrna=GTF_rrnaGenes.txt
 			fi
 
 		elif [[ $txid == "6"  && $idtype == "gene_id_noversion" ]]; then
 		echo "Separate version field detected (ensembl, non-gencode transcriptome, eg. rat, etc). Omitting it..."
-		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$6 "."  $8"\t"$2}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
-		txp2gene="txp2gene.tsv"
+		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$6 "."  $8"\t"$2}' | sort | uniq | sed 's/\"//g' > "GTF_txp2gene.tsv"
+		txp2gene="GTF_txp2gene.tsv"
 
 			if [[ $mtbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM" || $1=="MT")' | cut -f9 | tr -s ";" " " | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
@@ -183,13 +183,13 @@ elif [[ tgcol -ne 2 ]]; then
 			fi
 
 			if [[ $rbuild == "TRUE" ]]; then
-			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$14=="\"rRNA\""' | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
-			rrna=GTF_rGenes.txt
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$14=="\"rRNA\""' | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_rrnaGenes.txt"
+			rrna=GTF_rrnaGenes.txt
 			fi
 
 		elif [[ $txid == "4" && $idtype == "gene_symbol" ]]; then
-		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$4"\t"$8}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
-		txp2gene="txp2gene.tsv"
+		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$4"\t"$8}' | sort | uniq | sed 's/\"//g' > "GTF_txp2gene.tsv"
+		txp2gene="GTF_txp2gene.tsv"
 
 			if [[ $mtbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM" || $1=="MT")' | cut -f9 | tr -s ";" " " | awk '{print$8}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
@@ -197,14 +197,14 @@ elif [[ tgcol -ne 2 ]]; then
 			fi
 
 			if [[ $rbuild == "TRUE" ]]; then
-			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$6=="\"rRNA\""' | awk '{print$8}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
-			rrna=GTF_rGenes.txt
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$6=="\"rRNA\""' | awk '{print$8}' | sort | uniq | sed 's/\"//g' > "GTF_rrnaGenes.txt"
+			rrna=GTF_rrnaGenes.txt
 			fi
 
 		elif [[ $txid == "6"  && $idtype == "gene_symbol" ]]; then
 		echo "Separate version field (ensembl, non-gencode transcriptome, eg. rat, etc)"
-		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$6 "."  $8"\t"$10}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
-		txp2gene="txp2gene.tsv"
+		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$6 "."  $8"\t"$10}' | sort | uniq | sed 's/\"//g' > "GTF_txp2gene.tsv"
+		txp2gene="GTF_txp2gene.tsv"
 
 			if [[ $mtbuild == "TRUE" ]]; then
 			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM" || $1=="MT")' | cut -f9 | tr -s ";" " " | awk '{print$10}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
@@ -212,8 +212,8 @@ elif [[ tgcol -ne 2 ]]; then
 			fi
 
 			if [[ $rbuild == "TRUE" ]]; then
-			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$14=="\"rRNA\""' | awk '{print$10}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
-			rrna=GTF_rGenes.txt
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$14=="\"rRNA\""' | awk '{print$10}' | sort | uniq | sed 's/\"//g' > "GTF_rrnaGenes.txt"
+			rrna=GTF_rrnaGenes.txt
 			fi
 
 		else
@@ -259,8 +259,13 @@ salmon alevin \
       --tgMap $txp2gene \
       -o $outdir ;
 
+[[ -e GTF_txp2gene.tsv ]] && cp GTF_txp2gene.tsv $outdir
+[[ -e GTF_mtGenes.txt ]] && cp GTF_mtGenes.txt $outdir
+[[ -e GTF_rrnaGenes.txt ]] && cp GTF_rrnaGenes.txt $outdir
+
+tar -czvf $outdir.output.tar.gz -C $outdir .
 rm -rf $outdir
 
     echo "--Done." ;
 
-rm -rf salmon_index txp2gene.tsv transcriptome GTF_mtGenes.txt GTF_rGenes.txt
+rm -rf salmon_index transcriptome GTF_txp2gene.tsv GTF_mtGenes.txt GTF_rrnaGenes.txt
