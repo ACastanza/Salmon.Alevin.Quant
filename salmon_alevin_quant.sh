@@ -133,7 +133,7 @@ elif [[ tgcol -ne 2 ]]; then
 		txp2gene="txp2gene.tsv"
 
 			if [[ $mtbuild == "TRUE" ]]; then
-			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM")' | cut -f9 | tr -s ";" " " | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM" || $1=="MT")' | cut -f9 | tr -s ";" " " | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
 			mtrna=GTF_mtGenes.txt
 			fi
 
@@ -148,7 +148,7 @@ elif [[ tgcol -ne 2 ]]; then
 		txp2gene="txp2gene.tsv"
 
 			if [[ $mtbuild == "TRUE" ]]; then
-			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM")' | cut -f9 | tr -s ";" " " | awk '{print$2 "."  $4}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM" || $1=="MT")' | cut -f9 | tr -s ";" " " | awk '{print$2 "."  $4}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
 			mtrna=GTF_mtGenes.txt
 			fi
 
@@ -157,12 +157,42 @@ elif [[ tgcol -ne 2 ]]; then
 			rrna=GTF_rGenes.txt
 			fi
 
+		elif [[ $txid == "4" && $idtype == "gene_id_noversion" ]]; then
+		echo "Omitting gene id versions..."
+		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$4"\t"$2}' | awk 'BEGIN { OFS=FS="\t" } { sub("\\..*", "", $2); print }' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
+		txp2gene="txp2gene.tsv"
+
+			if [[ $mtbuild == "TRUE" ]]; then
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM" || $1=="MT")' | cut -f9 | tr -s ";" " " | awk '{print$2}' | awk 'BEGIN { OFS=FS="\t" } { sub("\\..*", "", $1); print }' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
+			mtrna=GTF_mtGenes.txt
+			fi
+
+			if [[ $rbuild == "TRUE" ]]; then
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$6=="\"rRNA\""' | awk '{print$2}' | awk 'BEGIN { OFS=FS="\t" } { sub("\\..*", "", $1); print }' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
+			rrna=GTF_rGenes.txt
+			fi
+
+		elif [[ $txid == "6"  && $idtype == "gene_id_noversion" ]]; then
+		echo "Separate version field detected (ensembl, non-gencode transcriptome, eg. rat, etc). Omitting it..."
+		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$6 "."  $8"\t"$2}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
+		txp2gene="txp2gene.tsv"
+
+			if [[ $mtbuild == "TRUE" ]]; then
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM" || $1=="MT")' | cut -f9 | tr -s ";" " " | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
+			mtrna=GTF_mtGenes.txt
+			fi
+
+			if [[ $rbuild == "TRUE" ]]; then
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '$14=="\"rRNA\""' | awk '{print$2}' | sort | uniq | sed 's/\"//g' > "GTF_rGenes.txt"
+			rrna=GTF_rGenes.txt
+			fi
+
 		elif [[ $txid == "4" && $idtype == "gene_symbol" ]]; then
 		zless -S $tgMap | grep -v "#" | awk '$3=="transcript"' | cut -f9 | tr -s ";" " " | awk '{print$4"\t"$8}' | sort | uniq | sed 's/\"//g' > "txp2gene.tsv"
 		txp2gene="txp2gene.tsv"
 
 			if [[ $mtbuild == "TRUE" ]]; then
-			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM")' | cut -f9 | tr -s ";" " " | awk '{print$8}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM" || $1=="MT")' | cut -f9 | tr -s ";" " " | awk '{print$8}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
 			mtrna=GTF_mtGenes.txt
 			fi
 
@@ -177,7 +207,7 @@ elif [[ tgcol -ne 2 ]]; then
 		txp2gene="txp2gene.tsv"
 
 			if [[ $mtbuild == "TRUE" ]]; then
-			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM")' | cut -f9 | tr -s ";" " " | awk '{print$10}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
+			zless -S $tgMap | grep -v "#" | awk '$3=="transcript" && ($1=="M" || $1=="chrM" || $1=="MT")' | cut -f9 | tr -s ";" " " | awk '{print$10}' | sort | uniq | sed 's/\"//g' > "GTF_mtGenes.txt"
 			mtrna=GTF_mtGenes.txt
 			fi
 

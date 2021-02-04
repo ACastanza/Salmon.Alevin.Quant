@@ -1,12 +1,12 @@
 #salmon.alevin.quant
-#Mon Feb 01 23:33:10 UTC 2021
+#Thu Feb 04 01:35:55 UTC 2021
 JVMLevel=
 LSID=urn\:lsid\:8080.gpserver.ip-172-31-26-71.ip-172-31-26-71.ec2.internal\:genepatternmodules\:337\:1
 author=Anthony S. Castanza;UCSD-MesirovLab
 categories=rna-seq;rna-seq;rna-seq
 commandLine=<libdir>salmon_alevin_quant.sh -b <Barcodes> -q <Reads> -i <Transcriptome.Index> -c <Chemistry> -l <Library.Type> -t <TgMap> -u <GTF.Gene.ID.Type> -w <Whitelist> -m <mtRNA> -n <mtRNA.From.GTF> -r <rRNA> -s  <rRNA.From.GTF> -x <dumpMTX> -e <expectCells> -f <forceCells> -j <job.cpuCount>
 cpuType=any
-description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin function (version 1.4.0).<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
+description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin function.<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
 fileFormat=.gz;.tar.gz;gz
 job.docker.image=combinelab/salmon\:1.4.0
 language=any
@@ -182,7 +182,7 @@ p7_optional=
 p7_prefix=
 p7_prefix_when_specified=
 p7_type=java.lang.String
-p7_value=gene_id\=gene_id;gene_symbol\=gene_symbol
+p7_value=gene_id\=gene_id;gene_id_noversion\=gene_id (Drop decimal versions);gene_symbol\=gene_symbol
 p8_MODE=IN
 p8_TYPE=FILE
 p8_default_value=
