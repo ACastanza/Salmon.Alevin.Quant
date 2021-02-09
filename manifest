@@ -4,7 +4,7 @@ JVMLevel=
 LSID=urn\:lsid\:8080.gpserver.ip-172-31-26-71.ip-172-31-26-71.ec2.internal\:genepatternmodules\:337\:1
 author=Anthony S. Castanza;UCSD-MesirovLab
 categories=rna-seq;rna-seq;rna-seq
-commandLine=<libdir>salmon_alevin_quant.sh -b <Barcodes> -q <Reads> -i <Transcriptome.Index> -c <Chemistry> -l <Library.Type> -t <TgMap> -u <GTF.Gene.ID.Type> -w <Whitelist> -m <mtRNA> -n <mtRNA.From.GTF> -r <rRNA> -s  <rRNA.From.GTF> -x <dumpMTX> -e <expectCells> -f <forceCells> -j <job.cpuCount>
+commandLine=<libdir>salmon_alevin_quant.sh -b <Barcodes> -q <Reads> -i <Transcriptome.Index> -c <Chemistry> -l <Library.Type> -t <TgMap> -u <GTF.Gene.ID.Type> -w <Whitelist> -m <mtRNA> -n <mtRNA.From.GTF> -r <rRNA> -s <rRNA.From.GTF> -x <dumpMTX> -e <expectCells> -f <forceCells> -j <job.cpuCount>
 cpuType=any
 description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin function.<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
 fileFormat=.gz;.tar.gz;gz
@@ -112,7 +112,7 @@ p2_description=The FASTQ file containing raw read-sequences. Alevin also support
 p2_fileFormat=.fastq.gz;.fq.gz;.gz;fastq.gz;fq.gz
 p2_flag=-q
 p2_name=Reads
-p2_numValues=2+
+p2_numValues=1+
 p2_optional=
 p2_prefix=
 p2_prefix_when_specified=

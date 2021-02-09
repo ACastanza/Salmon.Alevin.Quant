@@ -4,7 +4,14 @@ set -e
 
 abort()
 {
-rm -rf salmon_index GTF_txp2gene.tsv transcriptome
+
+[[ -f "transcriptome" ]] && rm -rf transcriptome
+[[ -f "GTF_rrnaGenes.txt" ]] && rm GTF_rrnaGenes.txt
+[[ -f "GTF_mtGenes.txt" ]] && rm GTF_mtGenes.txt
+[[ -f "GTF_txp2gene.tsv" ]] && rm GTF_txp2gene.tsv
+
+[[ -d "salmon_index" ]] && rm -rf salmon_index
+[[ -d "$outdir" ]] && rm -rf $outdir
 
     echo >&2 '
 ***************
@@ -263,9 +270,22 @@ salmon alevin \
 [[ -e GTF_mtGenes.txt ]] && cp GTF_mtGenes.txt $outdir
 [[ -e GTF_rrnaGenes.txt ]] && cp GTF_rrnaGenes.txt $outdir
 
+echo "Compressing Alevin output"
 tar -czvf $outdir.output.tar.gz -C $outdir .
-rm -rf $outdir
 
-    echo "--Done." ;
+echo "Cleaning up"
 
-rm -rf salmon_index transcriptome GTF_txp2gene.tsv GTF_mtGenes.txt GTF_rrnaGenes.txt
+[[ -f "transcriptome" ]] && rm -rf transcriptome
+[[ -f "GTF_rrnaGenes.txt" ]] && rm GTF_rrnaGenes.txt
+[[ -f "GTF_mtGenes.txt" ]] && rm GTF_mtGenes.txt
+[[ -f "GTF_txp2gene.tsv" ]] && rm GTF_txp2gene.tsv
+
+[[ -d "salmon_index" ]] && rm -rf salmon_index
+[[ -d "$outdir" ]] && rm -rf $outdir
+
+trap : 0
+echo >&2 '
+***********************
+*** DONE Processing ***
+***********************
+'
