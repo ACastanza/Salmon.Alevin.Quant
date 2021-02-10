@@ -2,6 +2,7 @@
 # Using getopt
 set -e
 
+trap abort ERR PROF
 abort()
 {
 
