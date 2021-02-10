@@ -1,10 +1,10 @@
 #salmon.alevin.quant
-#Thu Feb 04 01:35:55 UTC 2021
+#Wed Feb 10 18:17:43 UTC 2021
 JVMLevel=
 LSID=urn\:lsid\:8080.gpserver.ip-172-31-26-71.ip-172-31-26-71.ec2.internal\:genepatternmodules\:337\:1
 author=Anthony S. Castanza;UCSD-MesirovLab
 categories=rna-seq;rna-seq;rna-seq
-commandLine=<libdir>salmon_alevin_quant.sh -b <Barcodes> -q <Reads> -i <Transcriptome.Index> -c <Chemistry> -l <Library.Type> -t <TgMap> -u <GTF.Gene.ID.Type> -w <Whitelist> -m <mtRNA> -n <mtRNA.From.GTF> -r <rRNA> -s <rRNA.From.GTF> -x <dumpMTX> -e <expectCells> -f <forceCells> -j <job.cpuCount>
+commandLine=<libdir>salmon_alevin_quant.sh -b <Barcodes> -q <Reads> -i <Transcriptome.Index> -c <Chemistry> -l <Library.Type> -t <TgMap> -u <GTF.Gene.ID.Type> -w <Whitelist> -m <mtRNA> -n <mtRNA.From.GTF> -r <rRNA> -s <rRNA.From.GTF> -x <dumpMTX> -e <expectCells> -f <forceCells> -d <dumpFeatures> -a <numCellBootstraps> -j <job.cpuCount> 
 cpuType=any
 description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin function.<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
 fileFormat=.gz;.tar.gz;gz
@@ -92,6 +92,33 @@ p15_prefix_when_specified=
 p15_range=0+
 p15_type=java.lang.Integer
 p15_value=
+p16_MODE=
+p16_TYPE=TEXT
+p16_default_value=FALSE
+p16_description=If activated, alevin dumps all the features used by the CB classification and their counts at each cell level. It?s generally used in pair with other flags.
+p16_fileFormat=
+p16_flag=-d
+p16_name=dumpFeatures
+p16_numValues=1..1
+p16_optional=
+p16_prefix=
+p16_prefix_when_specified=
+p16_type=java.lang.String
+p16_value=TRUE\=true;FALSE\=false
+p17_MODE=
+p17_TYPE=Integer
+p17_default_value=0
+p17_description=Estimate the inferential uncertainty in the estimation of per cell level gene count matrix by performing bootstrapping of the reads in per-cell level equivalence classes, and generate the mean and variance of the count matrix. This option generates three additional files, namely, quants_mean_mat.gz, quants_var_mat.gz and quants_boot_rows.txt. The format of the files stay the same as quants_mat.gz while the row order is saved in quants_boot_rows.txt and the column order is stays the same as in file quants_mat_cols.txt.<br>\nSet the number of bootstrap estimates to perform (0 \= flag will not be passed to alevin). dumpFeatures must be set to "true".
+p17_fileFormat=
+p17_flag=-a
+p17_name=numCellBootstraps
+p17_numValues=0..1
+p17_optional=
+p17_prefix=
+p17_prefix_when_specified=
+p17_range=0+
+p17_type=java.lang.Integer
+p17_value=
 p1_MODE=IN
 p1_TYPE=FILE
 p1_default_value=

@@ -12,7 +12,6 @@ abort()
 [[ -f "GTF_txp2gene.tsv" ]] && rm GTF_txp2gene.tsv
 
 [[ -d "salmon_index" ]] && rm -rf salmon_index
-[[ -d "$outdir" ]] && rm -rf $outdir
 
     echo >&2 '
 ***************
@@ -23,7 +22,7 @@ abort()
     exit 1
 }
 
-while getopts ":b:q:i:c:l:t:u:w:m:n:r:s:x:f:e:j:" opt; do
+while getopts ":b:q:i:c:l:t:u:w:m:n:r:s:x:e:f:d:a:j:" opt; do
     case $opt in
         b)
             inbarcode=`realpath $OPTARG`
@@ -105,6 +104,12 @@ while getopts ":b:q:i:c:l:t:u:w:m:n:r:s:x:f:e:j:" opt; do
             ;;
         f)
             force="$OPTARG"
+            ;;
+        d)
+            features="$OPTARG"
+            ;;
+        a)
+            numboot="$OPTARG"
             ;;
         j)
             threads="$OPTARG"
@@ -253,6 +258,8 @@ params=()
 [[ $mtx == "TRUE" ]] && params+=(--dumpMtx)
 [[ $expect -gt "0" ]] && params+=(--expectCells $expect)
 [[ $force -gt "0" ]] && params+=(--forceCells $force)
+[[ $features == "TRUE" ]] && params+=(--dumpFeatures)
+[[ $numboot -gt "0" ]] && params+=(--numCellBootstraps $numboot)
 
 # [[ $CONDITION == true ]] && params+=(--param)
 

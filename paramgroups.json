@@ -25,7 +25,9 @@
             "rRNA.From.GTF",
             "dumpMTX",
             "expectCells",
-            "forceCells"
+            "forceCells",
+            "dumpFeatures",
+            "numCellBootstraps"
         ]
     }
 ]
