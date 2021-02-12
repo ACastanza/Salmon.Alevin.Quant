@@ -9,7 +9,8 @@
             "Transcriptome.Index",
             "Chemistry",
             "Library.Type",
-            "TgMap"
+            "TgMap",
+            "Output.Basename"
         ]
     },
     {

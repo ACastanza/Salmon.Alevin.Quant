@@ -22,7 +22,7 @@ abort()
     exit 1
 }
 
-while getopts ":b:q:i:c:l:t:u:w:m:n:r:s:x:e:f:d:a:j:" opt; do
+while getopts ":b:q:i:c:l:t:z:u:w:m:n:r:s:x:e:f:d:a:j:" opt; do
     case $opt in
         b)
             inbarcode=`realpath $OPTARG`
@@ -50,6 +50,9 @@ while getopts ":b:q:i:c:l:t:u:w:m:n:r:s:x:e:f:d:a:j:" opt; do
             tgMap=`realpath $OPTARG`
             echo "--tgMap = $tgMap"
           fi          
+            ;;
+        z)
+            basename="$OPTARG"
             ;;
         u)
             idtype="$OPTARG"
@@ -239,7 +242,7 @@ else
 	echo "Error Parsing tgMap"
 fi
 
-outdir="alevin"
+outdir=$basename
 mkdir -p "$outdir" ;
 
 
@@ -279,7 +282,7 @@ salmon alevin \
 [[ -e GTF_rrnaGenes.txt ]] && cp GTF_rrnaGenes.txt $outdir
 
 echo "Compressing Alevin output"
-tar -czvf $outdir.output.tar.gz -C $outdir .
+tar -czvf $outdir.tar.gz -C $outdir .
 
 echo "Cleaning up"
 
