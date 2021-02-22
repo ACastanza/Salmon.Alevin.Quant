@@ -200,7 +200,7 @@ p5_value=ISF\=ISF (Inward, read 1 from the forward strand);ISR\=ISR (Inward, rea
 p6_MODE=IN
 p6_TYPE=FILE
 p6_default_value=
-p6_description=Transcript to gene map file, a tsv (tab-separated) file with no header, containing two columns mapping of each transcript present in the reference to the corresponding gene (the first column is a transcript and the second is the corresponding gene).\n<br>\nAlternatively, a .GTF file can be supplied to automatically create a transcript to gene map.\n<br>
+p6_description=A two column tsv (tab-separated) file with no header containing the transcript to gene map file. The first column lists each transcript present in the reference, the second column lists the corresponding gene.\n<br>\nAlternatively, a .GTF file can be supplied to automatically create a transcript to gene map.\n<br>
 p6_fileFormat=.gtf.gz;gtf;gtf.gz;tsv;txt
 p6_flag=-t
 p6_name=TgMap
@@ -251,7 +251,7 @@ p9_type=java.io.File
 p9_value=
 privacy=public
 quality=preproduction
-taskDoc=
+taskDoc=salmon.alevin.quant.doc
 taskType=rna-seq
 userid=acastanza
 version=Alevin 1.4.0
