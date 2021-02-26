@@ -255,6 +255,10 @@ params=()
 [[ $method == "celseq2" ]] && params+=(--celseq2)
 [[ $method == "quartzseq2" ]] && params+=(--quartzseq2)
 
+[[ $method == "rhapsody" ]] && params+=(--umi-geometry \'1[53-60]\')
+[[ $method == "rhapsody" ]] && params+=(--bc-geometry \'1[1-9,22-30,44-52]\')
+[[ $method == "rhapsody" ]] && params+=(--read-geometry \'2[1-end]\')
+
 [[ -e "$whitelist" ]] && params+=(--whitelist $whitelist)
 [[ -e "$mtrna" ]] && params+=(--mrna $mtrna)
 [[ -e "$rrna" ]] && params+=(--rrna $rrna)

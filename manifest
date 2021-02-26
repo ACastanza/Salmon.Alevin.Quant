@@ -174,7 +174,7 @@ p3_value=
 p4_MODE=
 p4_TYPE=TEXT
 p4_default_value=dropseq
-p4_description=The chemistry used by the single-cell sequencing platform.<br>\nDrop-Seq, 10x Chromium v2, 10x Chromium v3, CITE-Seq, CEL-Seq, CEL-Seq2, and Quartz-Seq2 are currently supported.
+p4_description=The chemistry used by the single-cell sequencing platform.<br>\nDrop-Seq, 10x Chromium v2, 10x Chromium v3, CITE-Seq, CEL-Seq, CEL-Seq2, and Quartz-Seq2 are currently supported. BD Rhapsody support is experimental.
 p4_fileFormat=
 p4_flag=-c
 p4_name=Chemistry
@@ -183,7 +183,7 @@ p4_optional=
 p4_prefix=
 p4_prefix_when_specified=
 p4_type=java.lang.String
-p4_value=dropseq\=Drop-Seq;chromium\=10x Chromium v2;chromiumV3\=10x Chromium v3;citeseq\=CITE-Seq;celseq\=CEL-Seq;celseq2\=CEL-Seq2;quartzseq2\=Quartz-Seq2
+p4_value=dropseq\=Drop-Seq;chromium\=10x Chromium v2;chromiumV3\=10x Chromium v3;citeseq\=CITE-Seq;celseq\=CEL-Seq;celseq2\=CEL-Seq2;quartzseq2\=Quartz-Seq2;rhapsody\=BD Rhapsody (Experimental)
 p5_MODE=
 p5_TYPE=TEXT
 p5_default_value=ISR
