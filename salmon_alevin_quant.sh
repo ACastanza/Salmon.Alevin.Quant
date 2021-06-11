@@ -49,7 +49,7 @@ while getopts ":b:q:i:c:l:t:z:u:w:m:n:r:s:x:e:f:d:a:j:" opt; do
           else
             tgMap=`realpath $OPTARG`
             echo "--tgMap = $tgMap"
-          fi          
+          fi
             ;;
         z)
             basename="$OPTARG"
@@ -67,7 +67,7 @@ while getopts ":b:q:i:c:l:t:z:u:w:m:n:r:s:x:e:f:d:a:j:" opt; do
           else
             whitelist=`realpath $OPTARG`
             echo "--whitelist = $whitelist"
-          fi          
+          fi
             ;;
         m)
           if [[ $OPTARG =~ ^[^-]+$ ]];then
@@ -79,7 +79,7 @@ while getopts ":b:q:i:c:l:t:z:u:w:m:n:r:s:x:e:f:d:a:j:" opt; do
           else
             mrna=`realpath $OPTARG`
             echo "--mrna = $mtrna"
-          fi          
+          fi
             ;;
         n)
             mtbuild="$OPTARG"
@@ -94,7 +94,7 @@ while getopts ":b:q:i:c:l:t:z:u:w:m:n:r:s:x:e:f:d:a:j:" opt; do
           else
             rrna=`realpath $OPTARG`
             echo "--rrna = $rrna"
-          fi          
+          fi
             ;;
         s)
             rbuild="$OPTARG"
@@ -234,7 +234,7 @@ elif [[ tgcol -ne 2 ]]; then
 
 		else
 		echo "Error Parsing GTF"
-	fi		
+	fi
 
 elif [[ tgcol -eq 2 ]]; then
 	txp2gene=$tgMap
