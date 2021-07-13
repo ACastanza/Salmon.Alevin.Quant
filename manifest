@@ -1,7 +1,7 @@
 #Salmon.Alevin.Quant
 #Fri Feb 12 18:05:55 UTC 2021
 JVMLevel=
-LSID=urn\:lsid\:8080.gpserver.ip-172-31-26-71.ip-172-31-26-71.ec2.internal\:genepatternmodules\:337\:1
+LSID=urn:lsid:genepattern.org:module.analysis:00418:0.1
 author=Anthony S. Castanza;UCSD-MesirovLab
 categories=rna-seq;single-cell
 commandLine=<libdir>salmon_alevin_quant.sh -b <Barcodes> -q <Reads> -i <Transcriptome.Index> -c <Chemistry> -l <Library.Type> -t <TgMap> -z <Output.Basename> -u <GTF.Gene.ID.Type> -w <Whitelist> -m <mtRNA> -n <mtRNA.From.GTF> -r <rRNA> -s <rRNA.From.GTF> -x <dumpMTX> -e <expectCells> -f <forceCells> -d <dumpFeatures> -a <numCellBootstraps> -j <job.cpuCount>
