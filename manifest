@@ -8,7 +8,7 @@ commandLine=<libdir>salmon_alevin_quant.sh -b <Barcodes> -q <Reads> -i <Transcri
 cpuType=any
 description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin function.<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
 fileFormat=.gz;.tar.gz;gz
-job.docker.image=combinelab/salmon\:1.5.1
+job.docker.image=combinelab/salmon\:1.5.2
 language=any
 name=Salmon.Alevin.Quant
 os=any
@@ -254,4 +254,4 @@ quality=preproduction
 taskDoc=Salmon.Alevin.Quant.pdf
 taskType=rna-seq
 userid=acastanza
-version=Alevin 1.5.1
+version=Alevin 1.5.2
