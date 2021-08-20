@@ -1,15 +1,17 @@
 #Salmon.Alevin.Quant
 #Fri Feb 12 18:05:55 UTC 2021
 JVMLevel=
-LSID=urn:lsid:genepattern.org:module.analysis:00418:0.3
+LSID=urn:lsid:genepattern.org:module.analysis:00418:0.4
 author=Anthony S. Castanza;UCSD-MesirovLab
 categories=rna-seq;single-cell
 commandLine=<libdir>salmon_alevin_quant.sh -b <Barcodes> -q <Reads> -i <Transcriptome.Index> -c <Chemistry> -l <Library.Type> -t <TgMap> -z <Output.Basename> -u <GTF.Gene.ID.Type> -w <Whitelist> -m <mtRNA> -n <mtRNA.From.GTF> -r <rRNA> -s <rRNA.From.GTF> -x <dumpMTX> -e <expectCells> -f <forceCells> -d <dumpFeatures> -a <numCellBootstraps> -j <job.cpuCount>
 cpuType=any
 description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin function.<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
 fileFormat=.gz;.tar.gz;gz
-src.repo=https://github.com/genepattern/Salmon.Alevin.Quant/tree/v0.3
+src.repo=https://github.com/genepattern/Salmon.Alevin.Quant/tree/v0.4
 job.docker.image=genepattern/salmon-alevin-quant:beta
+job.memory=4Gb
+job.cpuCount=2
 language=any
 name=Salmon.Alevin.Quant
 os=any

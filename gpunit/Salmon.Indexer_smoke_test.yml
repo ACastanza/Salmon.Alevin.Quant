@@ -1,24 +1,27 @@
+#lsid urn:lsid:genepattern.org:module.analysis:00418
+
 name: "Salmon.Alevin.Quant - Basic smoke test"
 module: Salmon.Alevin.Quant
 params:
-    Barcodes:
-    Reads:
-    Transcriptome.Index: "https://datasets-genepattern-org.s3.amazonaws.com/data/test_data/Salmon/Drosophila_melanogaster.BDGP6.32.103.k31.salmon_full_decoy_index.tar.gz"
-    Chemistry:
-    Library.Type:
-    TgMap:
-    Output Basename:
-    GTF Gene ID Type:
-    Whitelist:
-    mtRNA:
-    mtRNA From GTF:
-    rRNA:
-    rRNA from GTF:
-    dumpMTX:
-    expectCells:
-    forceCells:
-    dumpFeatures:
-    numCellBootstraps:
+    Barcodes: - test data
+    Reads: - test data
+    Transcriptome.Index: dropdown to gencode.v37.annotation.k31.salmon_full_decoy_index.tar.gz
+    Chemistry: "10x Chromium v3"
+    Library.Type: "ISR (Inward, read 1 from the reverse strand)"
+    TgMap: dropdown to http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_37/gencode.v37.annotation.gtf.gz
+    Output Basename: "alevin.output"
+    GTF Gene ID Type: "gene_id"
+    Whitelist: ""
+    mtRNA: ""
+    mtRNA From GTF: "false"
+    rRNA: ""
+    rRNA from GTF: "false"
+    dumpMTX: "false"
+    expectCells: "0"
+    forceCells: "0"
+    dumpFeatures: "true"
+    numCellBootstraps: "0"
 assertions:
     jobStatus: success
     files:
+        alevin.output.tar.gz: !!null
