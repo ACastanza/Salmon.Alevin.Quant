@@ -1,0 +1,24 @@
+name: "Salmon.Alevin.Quant - Basic smoke test"
+module: Salmon.Alevin.Quant
+params:
+    Barcodes:
+    Reads:
+    Transcriptome.Index: "https://datasets-genepattern-org.s3.amazonaws.com/data/test_data/Salmon/Drosophila_melanogaster.BDGP6.32.103.k31.salmon_full_decoy_index.tar.gz"
+    Chemistry:
+    Library.Type:
+    TgMap:
+    Output Basename:
+    GTF Gene ID Type:
+    Whitelist:
+    mtRNA:
+    mtRNA From GTF:
+    rRNA:
+    rRNA from GTF:
+    dumpMTX:
+    expectCells:
+    forceCells:
+    dumpFeatures:
+    numCellBootstraps:
+assertions:
+    jobStatus: success
+    files:
