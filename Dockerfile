@@ -3,7 +3,7 @@ FROM combinelab/salmon\:1.5.2
 
 MAINTAINER Barbara Hill <bhill@broadinstitute.org>
 
-# docker build --rm https://github.com/genepattern/Salmon.Quant.git#develop -f Dockerfile -t genepattern/salmon-alevin-quant:<tag>
+# docker build --rm https://github.com/genepattern/Salmon.Alevin.Quant.git#develop -f Dockerfile -t genepattern/salmon-alevin-quant:<tag>
 # make sure this repo and tag match the manifest & don't forget to docker push!
 # docker push genepattern/salmon-alevin-quant:<tag>
 
