@@ -1,4 +1,3 @@
-#lsid urn:lsid:genepattern.org:module.analysis:00418
 name: "Salmon.Alevin.Quant - Basic smoke test"
 module: Salmon.Alevin.Quant
 params:
