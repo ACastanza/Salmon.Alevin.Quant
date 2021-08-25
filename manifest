@@ -9,9 +9,8 @@ cpuType=any
 description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin (v1.5.2) function.<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
 documentationUrl=
 fileFormat=.gz;.tar.gz;gz
-job.cpuCount=2
 job.docker.image=genepattern/salmon-alevin-quant\:beta
-job.memory=4Gb
+job.memory=16Gb
 language=any
 name=Salmon.Alevin.Quant
 os=any
