@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="" default="create-zip" name="Salmon.Alevin.Quant">
+<property name="dirOffset" value="../common_module_code" />
+<import file="${dirOffset}/commontargets.xml" />
+
+<target name="create-zip" depends="init">
+    <antcall target="prezip"/>
+    <zip destfile="${dest.dir}/${ant.project.name}.zip" whenempty="fail" defaultexcludes="true">
+        <fileset dir="." includes="manifest, Dockerfile, LICENSE, *.json"/>
+        <fileset dir="docs" includes="*.pdf"/>
+        <!-- these will move to the Docker image in the production release -->
+        <fileset dir="src" includes="*.sh"/>
+    </zip>
+    <antcall target="postzip"/>
+</target>
+
+</project>

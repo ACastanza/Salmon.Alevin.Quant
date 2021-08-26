@@ -1,14 +1,16 @@
 #Salmon.Alevin.Quant
-#Fri Feb 12 18:05:55 UTC 2021
+#Tue Aug 24 20:03:55 UTC 2021
 JVMLevel=
-LSID=urn:lsid:genepattern.org:module.analysis:00418:0.1
+LSID=urn\:lsid\:genepattern.org\:module.analysis\:00418\:0.6
 author=Anthony S. Castanza;UCSD-MesirovLab
 categories=rna-seq;single-cell
 commandLine=<libdir>salmon_alevin_quant.sh -b <Barcodes> -q <Reads> -i <Transcriptome.Index> -c <Chemistry> -l <Library.Type> -t <TgMap> -z <Output.Basename> -u <GTF.Gene.ID.Type> -w <Whitelist> -m <mtRNA> -n <mtRNA.From.GTF> -r <rRNA> -s <rRNA.From.GTF> -x <dumpMTX> -e <expectCells> -f <forceCells> -d <dumpFeatures> -a <numCellBootstraps> -j <job.cpuCount>
 cpuType=any
-description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin function.<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
+description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin (v1.5.2) function.<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
+documentationUrl=
 fileFormat=.gz;.tar.gz;gz
-job.docker.image=combinelab/salmon\:1.5.2
+job.docker.image=genepattern/salmon-alevin-quant\:beta
+job.memory=16Gb
 language=any
 name=Salmon.Alevin.Quant
 os=any
@@ -160,6 +162,7 @@ p2_type=java.io.File
 p2_value=
 p3_MODE=IN
 p3_TYPE=FILE
+p3_choices=https\://datasets-genepattern-org.s3.amazonaws.com/data/test_data/Salmon/gencode.v37.annotation.k31.salmon_full_decoy_index.tar.gz\=Human_Gencode_v37_Kmer31_Full_Decoy_Index;https\://datasets-genepattern-org.s3.amazonaws.com/data/test_data/Salmon/gencode.vM26.annotation.k31.salmon_full_decoy_index.tar.gz\=Mouse_Gencode_vM26_Kmer31_Full_Decoy_Index
 p3_default_value=
 p3_description=An Indexed transcriptome created with `Salmon Indexer`.<br>\nMust be in .tar.gz format.
 p3_fileFormat=.tar.gz;tar.gz
@@ -199,6 +202,7 @@ p5_type=java.lang.String
 p5_value=ISF\=ISF (Inward, read 1 from the forward strand);ISR\=ISR (Inward, read 1 from the reverse strand);IU\=IU (Inward, Unstranded);OSF\=OSF (Outward, read 1 from the forward strand);OSR\=OSR (Outward, read 1 from the reverse strand);OU\=OU (Outward, Unstranded)
 p6_MODE=IN
 p6_TYPE=FILE
+p6_choices=http\://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M26/gencode.vM26.annotation.gtf.gz\=Mouse_Gencode_vM26;http\://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_37/gencode.v37.annotation.gtf.gz\=Human_Gencode_v37
 p6_default_value=
 p6_description=A two column tsv (tab-separated) file with no header containing the transcript to gene map file. The first column lists each transcript present in the reference, the second column lists the corresponding gene.\n<br>\nAlternatively, a .GTF file can be supplied to automatically create a transcript to gene map.\n<br>
 p6_fileFormat=.gtf.gz;gtf;gtf.gz;tsv;txt
@@ -250,8 +254,10 @@ p9_prefix_when_specified=
 p9_type=java.io.File
 p9_value=
 privacy=public
+publicationDate=08/20/2021 16\:26 
 quality=preproduction
+src.repo=https\://github.com/genepattern/Salmon.Alevin.Quant/tree/v0.6
 taskDoc=Salmon.Alevin.Quant.pdf
 taskType=rna-seq
-userid=acastanza
-version=Alevin 1.5.2
+userid=bhill@broadinstitute.org
+version=Alevin 1.5.2 - beta release
