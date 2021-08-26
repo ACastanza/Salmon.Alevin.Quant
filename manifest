@@ -1,7 +1,7 @@
 #Salmon.Alevin.Quant
 #Tue Aug 24 20:03:55 UTC 2021
 JVMLevel=
-LSID=urn\:lsid\:genepattern.org\:module.analysis\:00418\:0.5
+LSID=urn\:lsid\:genepattern.org\:module.analysis\:00418\:0.6
 author=Anthony S. Castanza;UCSD-MesirovLab
 categories=rna-seq;single-cell
 commandLine=<libdir>salmon_alevin_quant.sh -b <Barcodes> -q <Reads> -i <Transcriptome.Index> -c <Chemistry> -l <Library.Type> -t <TgMap> -z <Output.Basename> -u <GTF.Gene.ID.Type> -w <Whitelist> -m <mtRNA> -n <mtRNA.From.GTF> -r <rRNA> -s <rRNA.From.GTF> -x <dumpMTX> -e <expectCells> -f <forceCells> -d <dumpFeatures> -a <numCellBootstraps> -j <job.cpuCount>
@@ -256,7 +256,7 @@ p9_value=
 privacy=public
 publicationDate=08/20/2021 16\:26 
 quality=preproduction
-src.repo=https\://github.com/genepattern/Salmon.Alevin.Quant/tree/v0.5
+src.repo=https\://github.com/genepattern/Salmon.Alevin.Quant/tree/v0.6
 taskDoc=Salmon.Alevin.Quant.pdf
 taskType=rna-seq
 userid=bhill@broadinstitute.org
