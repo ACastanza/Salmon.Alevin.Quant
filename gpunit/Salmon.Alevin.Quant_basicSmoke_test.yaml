@@ -3,7 +3,7 @@ module: Salmon.Alevin.Quant
 params:
     Barcodes: "https://datasets-genepattern-org.s3.amazonaws.com/data/test_data/Salmon/mm_LT_750_S5_L001_R1_001.fastq.gz"
     Reads: "https://datasets-genepattern-org.s3.amazonaws.com/data/test_data/Salmon/mm_LT_750_S5_L001_R2_001.fastq.gz"
-    Transcriptome.Index: "Human_Gencode_v37_Kmer31_Full_Decoy_Index"
+    Transcriptome.Index: "https://datasets-genepattern-org.s3.amazonaws.com/data/test_data/Salmon/gencode.v37.annotation.k31.salmon_full_decoy_index.tar.gz"
     Chemistry: "10x Chromium v3"
     Library.Type: "ISR (Inward, read 1 from the reverse strand)"
     TgMap: "Human_Gencode_v37"
