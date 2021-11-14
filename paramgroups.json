@@ -20,8 +20,8 @@
         "parameters": [
             "GTF.Gene.ID.Type",
             "Whitelist",
-            "mtRNA",
-            "mtRNA.From.GTF",
+            "mtGenes",
+            "mtGenes.From.GTF",
             "rRNA",
             "rRNA.From.GTF",
             "dumpMTX",
