@@ -68,7 +68,7 @@ p13_type=java.lang.String
 p13_value=TRUE\=true;FALSE\=false
 p14_MODE=
 p14_TYPE=TEXT
-p14_default_value=FALSE
+p14_default_value=TRUE
 p14_description=Convert the default binary format of alevin for gene-count matrix into a human readable mtx (matrix market exchange) sparse format. Generates a new output called quants_mat.mtx in the compressed output folder.
 p14_fileFormat=
 p14_flag=-x
