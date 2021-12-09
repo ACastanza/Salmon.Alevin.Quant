@@ -1,5 +1,5 @@
 ### copyright 2017-2021 Regents of the University of California and the Broad Institute. All rights reserved.
-FROM combinelab/salmon\:1.5.2
+FROM combinelab/salmon\:1.6.0
 
 MAINTAINER Barbara Hill <bhill@broadinstitute.org>
 
