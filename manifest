@@ -1,12 +1,12 @@
 #Salmon.Alevin.Quant
 #Tue Aug 24 20:03:55 UTC 2021
 JVMLevel=
-LSID=urn\:lsid\:genepattern.org\:module.analysis\:00418\:0.6
+LSID=urn\:lsid\:genepattern.org\:module.analysis\:00418\:0.7
 author=Anthony S. Castanza;UCSD-MesirovLab
 categories=rna-seq;single-cell
 commandLine=<libdir>salmon_alevin_quant.sh -b <Barcodes> -q <Reads> -i <Transcriptome.Index> -c <Chemistry> -l <Library.Type> -t <TgMap> -z <Output.Basename> -u <GTF.Gene.ID.Type> -w <Whitelist> -m <mtGenes> -n <mtGenes.From.GTF> -r <rRNA> -s <rRNA.From.GTF> -x <dumpMTX> -e <expectCells> -f <forceCells> -d <dumpFeatures> -a <numCellBootstraps> -j <job.cpuCount>
 cpuType=any
-description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin (v1.6.0) function.<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
+description=Quantification and analysis of 3' tagged-end single-cell sequencing data using Salmon's Alevin (v1.8.0) function.<br>\n\nSee\: <a href\="https\://salmon.readthedocs.io/en/latest/alevin.html" target\="_blank">The Alevin Documentation</a>\nfor detailed usage guidelines.
 documentationUrl=
 fileFormat=.gz;.tar.gz;gz
 job.docker.image=genepattern/salmon-alevin-quant\:beta
@@ -177,7 +177,7 @@ p3_value=
 p4_MODE=
 p4_TYPE=TEXT
 p4_default_value=dropseq
-p4_description=The chemistry used by the single-cell sequencing platform.<br>\nDrop-Seq, 10x Chromium v2, 10x Chromium v3, CITE-Seq, CEL-Seq, CEL-Seq2, Quartz-Seq2, sci-RNA-seq3, and inDrop v2 are currently supported. BD Rhapsody support is experimental.
+p4_description=The chemistry used by the single-cell sequencing platform.<br>\nDrop-Seq, 10x Chromium v2, 10x Chromium v3, CITE-Seq, CEL-Seq, CEL-Seq2, Quartz-Seq2, sci-RNA-seq3, inDrop v2, splitSeqV1, and splitSeqV2 are currently supported. BD Rhapsody support is experimental.
 p4_fileFormat=
 p4_flag=-c
 p4_name=Chemistry
@@ -186,7 +186,7 @@ p4_optional=
 p4_prefix=
 p4_prefix_when_specified=
 p4_type=java.lang.String
-p4_value=dropseq\=Drop-Seq;chromium\=10x Chromium v2;chromiumV3\=10x Chromium v3;citeseq\=CITE-Seq;celseq\=CEL-Seq;celseq2\=CEL-Seq2;quartzseq2\=Quartz-Seq2;sciseq3\=sci-RNA-seq3;indropV2\=inDrop v2;rhapsody\=BD Rhapsody (Experimental)
+p4_value=dropseq\=Drop-Seq;chromium\=10x Chromium v2;chromiumV3\=10x Chromium v3;citeseq\=CITE-Seq;celseq\=CEL-Seq;celseq2\=CEL-Seq2;quartzseq2\=Quartz-Seq2;sciseq3\=sci-RNA-seq3;indropV2\=inDrop v2;splitSeqV1\=splitSeqV1;splitSeqV2\=splitSeqV2;rhapsody\=BD Rhapsody (Experimental)
 p5_MODE=
 p5_TYPE=TEXT
 p5_default_value=ISR
@@ -256,8 +256,8 @@ p9_value=
 privacy=public
 publicationDate=08/20/2021 16\:26
 quality=preproduction
-src.repo=https\://github.com/genepattern/Salmon.Alevin.Quant/tree/v0.6
+src.repo=https\://github.com/genepattern/Salmon.Alevin.Quant/tree/v0.7
 taskDoc=Salmon.Alevin.Quant.pdf
 taskType=rna-seq
 userid=bhill@broadinstitute.org
-version=Alevin 1.6.0 - beta release
+version=Alevin 1.8.0 - updated to latest version, added enabled for splitSeq

@@ -256,6 +256,8 @@ params=()
 [[ $method == "quartzseq2" ]] && params+=(--quartzseq2)
 [[ $method == "sciseq3" ]] && params+=(--sciseq3)
 [[ $method == "indropV2" ]] && params+=(--indropV2)
+[[ $method == "splitSeqV1" ]] && params+=(--splitSeqV1)
+[[ $method == "splitSeqV2" ]] && params+=(--splitSeqV2)
 
 [[ $method == "rhapsody" ]] && params+=(--umi-geometry \'1[53-60]\')
 [[ $method == "rhapsody" ]] && params+=(--bc-geometry \'1[1-9,22-30,44-52]\')
